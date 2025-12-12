@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Listing</title>
+    <style>
+        body { font-family: Arial; background:#eef0f3; padding:20px; }
+        .box { max-width:550px; margin:30px auto; background:white; padding:25px;
+            border-radius:10px; box-shadow:0 3px 7px rgba(0,0,0,0.15); }
+        input, select, textarea { width:100%; padding:10px; margin:10px 0;
+            border-radius:5px; border:1px solid #bbb; }
+        button { width:100%; padding:12px; background:#007bff; color:white;
+            border:none; border-radius:6px; cursor:pointer; }
+        button:hover { background:#005fcc; }
+        .error { color:red; }
+        .back { color:#28a745; text-decoration:none; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+
+    <a href="/supplier/listings/" class="back">← Back</a>
+    <h2>Edit Listing</h2>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="name" value="{{ listing.name }}" required>
+
+        <select name="category">
+            <option value="raw_material" {% if listing.category == "raw_material" %}selected{% endif %}>Raw Material</option>
+            <option value="service" {% if listing.category == "service" %}selected{% endif %}>Service</option>
+            <option value="other" {% if listing.category == "other" %}selected{% endif %}>Other</option>
+        </select>
+
+        <textarea name="description" rows="4">{{ listing.description }}</textarea>
+
+        <input type="number" step="0.01" name="quantity_available"
+               value="{{ listing.quantity_available }}" required>
+
+        <input type="text" name="unit" value="{{ listing.unit }}" required>
+
+        <input type="text" name="location_country"
+               value="{{ listing.location_country }}" required>
+
+        <select name="pricing_mode" id="pmode" onchange="togglePrice()">
+            <option value="fixed" {% if listing.pricing_mode == "fixed" %}selected{% endif %}>Fixed Price</option>
+            <option value="rfq_only" {% if listing.pricing_mode == "rfq_only" %}selected{% endif %}>RFQ Only</option>
+        </select>
+
+        <input type="number" step="0.01" name="unit_price" id="priceField"
+               value="{{ listing.unit_price }}">
+
+        <button type="submit">Update Listing</button>
+    </form>
+
+</div>
+
+<script>
+function togglePrice() {
+    var mode = document.getElementById("pmode").value;
+    var priceField = document.getElementById("priceField");
+    priceField.style.display = mode === "fixed" ? "block" : "none";
+}
+togglePrice();
+</script>
+
+</body>
+</html>

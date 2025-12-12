@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incoming Requests</title>
+    <style>
+        body { font-family: Arial; background:#f5f6fa; padding:20px; }
+        h2 { text-align:center; }
+        .list { max-width:900px; margin:20px auto; }
+        .card { background:white; padding:20px; margin-bottom:15px;
+            border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.15); }
+        .btn { padding:8px 12px; border-radius:5px; color:white; text-decoration:none; }
+        .accept { background:#28a745; }
+        .reject { background:#dc3545; }
+        .paid { color:green; }
+        .unpaid { color:orange; }
+        .logout { position:fixed; right:20px; top:20px; background:#dc3545;
+            padding:8px 12px; color:white; border-radius:6px; text-decoration:none; }
+    </style>
+</head>
+<body>
+
+<a href="/logout/" class="logout">Logout</a>
+
+<h2>Purchase Requests</h2>
+
+<div class="list">
+    {% for r in requests %}
+        <div class="card">
+
+            <h3>{{ r.listing.name }}</h3>
+
+            <p><b>Buyer:</b> {{ r.buyer.username }}</p>
+            <p><b>Requested Qty:</b> {{ r.requested_quantity }} {{ r.listing.unit }}</p>
+            <p><b>Status:</b> {{ r.get_status_display }}</p>
+
+            {% if r.total_amount %}
+                <p><b>Total Amount:</b> ${{ r.total_amount }}</p>
+            {% endif %}
+
+            {% if r.payment_status == "paid" %}
+                <p class="paid">Payment: PAID</p>
+            {% else %}
+                <p class="unpaid">Payment: UNPAID</p>
+            {% endif %}
+
+            {% if r.status == "pending" %}
+                <a href="/supplier/requests/{{ r.id }}/accept/" class="btn accept">Accept</a>
+                <a href="/supplier/requests/{{ r.id }}/reject/" class="btn reject">Reject</a>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No requests received.</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>
