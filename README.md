@@ -106,7 +106,9 @@ Create Superuser (Optional)
 python manage.py createsuperuser
 Run the Development Server
 python manage.py runserver
-
+Open in Browser
+👉 http://127.0.0.1:8000/
+```
 ## Known Issues
 - Minimal styling; focus is on functionality
 - Mock payment only
@@ -131,5 +133,4 @@ python manage.py runserver
 ## Author
 **Haripriya K V**
 
-Open in Browser
-👉 http://127.0.0.1:8000/
+
