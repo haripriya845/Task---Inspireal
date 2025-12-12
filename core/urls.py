@@ -19,9 +19,5 @@ urlpatterns = [
     path("buyer/requests/", views.buyer_requests, name="buyer_requests"),
     path("supplier/listings/<int:listing_id>/edit/", views.edit_listing, name="edit_listing"),
     path("supplier/listings/<int:listing_id>/delete/", views.delete_listing, name="delete_listing"),
-    path("supplier/requests/<int:request_id>/pay/", views.mark_paid_view, name="mark_paid_supplier"),
-
-
-    
-
+    path("buyer/requests/<int:request_id>/pay/", views.mark_paid_view, name="mark_paid_buyer"),
 ]

@@ -145,6 +145,8 @@ def buyer_requests(request):
     requests = PurchaseRequest.objects.filter(buyer=user).order_by('-created_at')
     return render(request, "buyer_requests.html", {"requests": requests})
 
+
+
 def mark_paid_view(request, request_id):
     req = get_object_or_404(PurchaseRequest, id=request_id)
     req.mark_paid()
@@ -156,6 +158,7 @@ def mark_paid_view(request, request_id):
         else:  
             return redirect("/buyer/requests/")
     return redirect("/")  
+
 
 
 def edit_listing(request, listing_id):
