@@ -58,7 +58,6 @@ class Listing(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to="listing_images/", blank=True, null=True)
     quantity_available = models.FloatField()
     unit = models.CharField(max_length=50)  # kg, ton, litre
     location_country = models.CharField(max_length=100)
